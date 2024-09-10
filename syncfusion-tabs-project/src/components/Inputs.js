@@ -204,40 +204,159 @@ const Inputs = ({ pressure, temperature, distance, time, velocity, weight }) => 
 
       // Insert the image into the specified range B10:B14
       spreadsheet.insertImage([image10], 'Q14'); // Start from the upper-left corner of the range
-      // const image11 = {
-      //   src: 'https://i.postimg.cc/1XXBstwz/Screenshot-201.png', // Use the provided image URL
-      //   width: 160,  // Adjust width to fit within B10:B14
-      //   height: 20 // Adjust height to fit within B10:B14
-      // };
+      
+      const image11 = {
+        src: 'https://i.postimg.cc/gj2yXqDH/picture-picture.png', // Use the provided image URL
+        width: 480,  // Adjust width to fit within B10:B14
+        height: 70 // Adjust height to fit within B10:B14
+      };
 
-      // // Insert the image into the specified range B10:B14
-      // spreadsheet.insertImage([image11], 'A1'); // Start from the upper-left corner of the range
+      // Insert the image into the specified range B10:B14
+      spreadsheet.insertImage([image11], 'F12'); // Start from the upper-left corner of the range
 
       const image12 = {
-        src: 'https://i.postimg.cc/rshRHh30/Screenshottttt.png', // Use the provided image URL
+        src: 'https://i.postimg.cc/gj2yXqDH/picture-picture.png', // Use the provided image URL
         width: 320,  // Adjust width to fit within B10:B14
-        height: 100 // Adjust height to fit within B10:B14
+        height: 210 // Adjust height to fit within B10:B14
       };
 
       // Insert the image into the specified range B10:B14
       spreadsheet.insertImage([image12], 'A5'); // Start from the upper-left corner of the range
+      
       const image13 = {
-        src: 'https://i.postimg.cc/0yzpGgjJ/Screenshot-202-2.png', // Use the provided image URL
-        width: 960,  // Adjust width to fit within B10:B14
+        src: 'https://i.postimg.cc/gj2yXqDH/picture-picture.png', // Use the provided image URL
+        width: 2300,  // Adjust width to fit within B10:B14
         height: 19 // Adjust height to fit within B10:B14
       };
 
       // Insert the image into the specified range B10:B14
       spreadsheet.insertImage([image13], 'A15'); // Start from the upper-left corner of the range
+      
       const image14 = {
-        src: 'https://i.postimg.cc/pX4B6VgB/Screenshot-203-1.png', // Use the provided image URL
-        width: 645,  // Adjust width to fit within B10:B14
-        height: 20 // Adjust height to fit within B10:B14
+        src: 'https://i.postimg.cc/gj2yXqDH/picture-picture.png', // Use the provided image URL
+        width: 2300,  // Adjust width to fit within B10:B14
+        height: 21 // Adjust height to fit within B10:B14
       };
 
       // Insert the image into the specified range B10:B14
       spreadsheet.insertImage([image14], 'A1'); // Start from the upper-left corner of the range
+      
+      const image15 = {
+        src: 'https://i.postimg.cc/gj2yXqDH/picture-picture.png', // Use the provided image URL
+        width: 340,  // Adjust width to fit within B10:B14
+        height: 19 // Adjust height to fit within B10:B14
+      };
 
+      // Insert the image into the specified range B10:B14
+      spreadsheet.insertImage([image15], 'F5'); // Start from the upper-left corner of the range
+      
+      const image16 = {
+        src: 'https://i.postimg.cc/gj2yXqDH/picture-picture.png', // Use the provided image URL
+        width: 2300,  // Adjust width to fit within B10:B14
+        height: 21 // Adjust height to fit within B10:B14
+      };
+
+      // Insert the image into the specified range B10:B14
+      spreadsheet.insertImage([image16], 'A17'); // Start from the upper-left corner of the range
+      
+      const image17 = {
+        src: 'https://i.postimg.cc/gj2yXqDH/picture-picture.png', // Use the provided image URL
+        width: 1850,  // Adjust width to fit within B10:B14
+        height: 37 // Adjust height to fit within B10:B14
+      };
+
+      // Insert the image into the specified range B10:B14
+      spreadsheet.insertImage([image17], 'H10'); // Start from the upper-left corner of the range
+      
+      const image18 = {
+        src: 'https://i.postimg.cc/gj2yXqDH/picture-picture.png', // Use the provided image URL
+        width: 1450,  // Adjust width to fit within B10:B14
+        height: 60 // Adjust height to fit within B10:B14
+      };
+
+      // Insert the image into the specified range B10:B14
+      spreadsheet.insertImage([image18], 'K4'); // Start from the upper-left corner of the range
+      
+      const image19 = {
+        src: 'https://i.postimg.cc/gj2yXqDH/picture-picture.png', // Use the provided image URL
+        width: 2300,  // Adjust width to fit within B10:B14
+        height: 23 // Adjust height to fit within B10:B14
+      };
+
+      // Insert the image into the specified range B10:B14
+      spreadsheet.insertImage([image19], 'A19'); // Start from the upper-left corner of the range
+
+      const image20 = {
+        src: 'https://i.postimg.cc/gj2yXqDH/picture-picture.png', // Use the provided image URL
+        width: 1520,  // Adjust width to fit within B10:B14
+        height: 20 // Adjust height to fit within B10:B14
+      };
+
+      // Insert the image into the specified range B10:B14
+      spreadsheet.insertImage([image20], 'K2'); // Start from the upper-left corner of the range
+
+      const image21 = {
+        src: 'https://i.postimg.cc/gj2yXqDH/picture-picture.png', // Use the provided image URL
+        width: 2300,  // Adjust width to fit within B10:B14
+        height: 23 // Adjust height to fit within B10:B14
+      };
+
+      // Insert the image into the specified range B10:B14
+      spreadsheet.insertImage([image21], 'A21'); // Start from the upper-left corner of the range
+      
+      const image22 = {
+        src: 'https://i.postimg.cc/gj2yXqDH/picture-picture.png', // Use the provided image URL
+        width: 160,  // Adjust width to fit within B10:B14
+        height: 23 // Adjust height to fit within B10:B14
+      };
+
+      // Insert the image into the specified range B10:B14
+      spreadsheet.insertImage([image22], 'K3'); // Start from the upper-left corner of the range
+      
+      const image23 = {
+        src: 'https://i.postimg.cc/gj2yXqDH/picture-picture.png', // Use the provided image URL
+        width: 193,  // Adjust width to fit within B10:B14
+        height: 23 // Adjust height to fit within B10:B14
+      };
+
+      // Insert the image into the specified range B10:B14
+      spreadsheet.insertImage([image23], 'C3'); // Start from the upper-left corner of the range
+      
+      const image24 = {
+        src: 'https://i.postimg.cc/gj2yXqDH/picture-picture.png', // Use the provided image URL
+        width: 193,  // Adjust width to fit within B10:B14
+        height: 23 // Adjust height to fit within B10:B14
+      };
+
+      // Insert the image into the specified range B10:B14
+      spreadsheet.insertImage([image24], 'C2'); // Start from the upper-left corner of the range
+      
+      const image25 = {
+        src: 'https://i.postimg.cc/gj2yXqDH/picture-picture.png', // Use the provided image URL
+        width: 193,  // Adjust width to fit within B10:B14
+        height: 23 // Adjust height to fit within B10:B14
+      };
+
+      // Insert the image into the specified range B10:B14
+      spreadsheet.insertImage([image25], 'C4'); // Start from the upper-left corner of the range
+      
+      const image26 = {
+        src: 'https://i.postimg.cc/gj2yXqDH/picture-picture.png', // Use the provided image URL
+        width: 1500,  // Adjust width to fit within B10:B14
+        height: 40 // Adjust height to fit within B10:B14
+      };
+
+      // Insert the image into the specified range B10:B14
+      spreadsheet.insertImage([image26], 'L13'); // Start from the upper-left corner of the range
+
+      const image27 = {
+        src: 'https://i.postimg.cc/gj2yXqDH/picture-picture.png', // Use the provided image URL
+        width: 159,  // Adjust width to fit within B10:B14
+        height: 100 // Adjust height to fit within B10:B14
+      };
+
+      // Insert the image into the specified range B10:B14
+      spreadsheet.insertImage([image27], 'K10'); // Start from the upper-left corner of the range
       
     }
   };
