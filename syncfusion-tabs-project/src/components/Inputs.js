@@ -204,10 +204,44 @@ const Inputs = ({ pressure, temperature, distance, time, velocity, weight }) => 
 
       // Insert the image into the specified range B10:B14
       spreadsheet.insertImage([image10], 'Q14'); // Start from the upper-left corner of the range
+      // const image11 = {
+      //   src: 'https://i.postimg.cc/1XXBstwz/Screenshot-201.png', // Use the provided image URL
+      //   width: 160,  // Adjust width to fit within B10:B14
+      //   height: 20 // Adjust height to fit within B10:B14
+      // };
+
+      // // Insert the image into the specified range B10:B14
+      // spreadsheet.insertImage([image11], 'A1'); // Start from the upper-left corner of the range
+
+      const image12 = {
+        src: 'https://i.postimg.cc/rshRHh30/Screenshottttt.png', // Use the provided image URL
+        width: 320,  // Adjust width to fit within B10:B14
+        height: 100 // Adjust height to fit within B10:B14
+      };
+
+      // Insert the image into the specified range B10:B14
+      spreadsheet.insertImage([image12], 'A5'); // Start from the upper-left corner of the range
+      const image13 = {
+        src: 'https://i.postimg.cc/0yzpGgjJ/Screenshot-202-2.png', // Use the provided image URL
+        width: 960,  // Adjust width to fit within B10:B14
+        height: 19 // Adjust height to fit within B10:B14
+      };
+
+      // Insert the image into the specified range B10:B14
+      spreadsheet.insertImage([image13], 'A15'); // Start from the upper-left corner of the range
+      const image14 = {
+        src: 'https://i.postimg.cc/pX4B6VgB/Screenshot-203-1.png', // Use the provided image URL
+        width: 645,  // Adjust width to fit within B10:B14
+        height: 20 // Adjust height to fit within B10:B14
+      };
+
+      // Insert the image into the specified range B10:B14
+      spreadsheet.insertImage([image14], 'A1'); // Start from the upper-left corner of the range
+
+      
     }
   };
   
-
   const customizeSpreadsheet = () => {
     const spreadsheet = spreadsheetRef.current;
     if (spreadsheet) {
@@ -2879,7 +2913,7 @@ const Inputs = ({ pressure, temperature, distance, time, velocity, weight }) => 
         style={{ height: '90%', width: '90%' }}
         allowEditing={false} // Disable editing by default
         showSheetTabs={false}
-        showFormulaBar={false}
+        showFormulaBar={true}
         showRibbon={false}
         showHeaders={false}
       >
