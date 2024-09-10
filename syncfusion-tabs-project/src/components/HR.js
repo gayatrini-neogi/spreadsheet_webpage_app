@@ -12,242 +12,518 @@ import '@syncfusion/ej2-dropdowns/styles/material.css';
 import '@syncfusion/ej2-grids/styles/material.css';
 import '@syncfusion/ej2-react-spreadsheet/styles/material.css';
 
+// Register the Syncfusion license key
 registerLicense('Ngo9BigBOggjHTQxAR8/V1NCaF1cVGhIfEx1RHxQdld5ZFRHallYTnNWUj0eQnxTdEFjUX5acXRRQmJYVEJ1Ww==');
 
-const SpreadsheetExample = ({ pressure, temperature, distance, time, velocity, weight }) => {
+const HR = ({ pressure, temperature, distance, time, velocity, weight }) => {
   const spreadsheetRef = useRef(null);
-
-  useEffect(() => {
-    const onDataBound = () => {
-      const spreadsheet = spreadsheetRef.current;
-
-      if (spreadsheet) {
-        // Set column widths for A to L
-        const columnWidths = Array(12).fill(100); // Adjusted to 100 as per your columns
-        spreadsheet.sheets[0].columns.forEach((col, index) => {
-          if (index < 12) col.width = columnWidths[index]; // Set width for A to L
-        });
-
-        // Set row heights for 1 to 25
-        const rowHeights = Array(25).fill(30); // Rows 1 to 25
-        spreadsheet.sheets[0].rows.forEach((row, index) => {
-          if (index < 25) row.height = rowHeights[index]; // Set height for 1 to 25
-        });
-
-        // Hide columns after L (12th column) and rows after 25
-        for (let col = 12; col < spreadsheet.sheets[0].columns.length; col++) {
-          spreadsheet.sheets[0].columns[col].width = 0; // Set width to 0
-        }
-        for (let row = 25; row < spreadsheet.sheets[0].rows.length; row++) {
-          spreadsheet.sheets[0].rows[row].height = 0; // Set height to 0
-        }
-
-        // Adding data and styling to the "HR" sheet
-        spreadsheet.updateCell(
-          { 
-            value: 'Hot Runner Controller Settings', 
-            style: { 
-              fontWeight: 'bold', 
-              textAlign: 'center', 
-              verticalAlign: 'middle', 
-              backgroundColor: 'rgb(163, 152, 236)', 
-              color: 'white',
-            } 
-          }, 
-          'HR!A1'
-        );
-        spreadsheet.merge('HR!A1:L1');
-        spreadsheet.updateCell(
-          { 
-            value: '', 
-            style: { 
-              fontWeight: 'bold', 
-              textAlign: 'center', 
-              verticalAlign: 'middle',  
-              backgroundColor: 'white', // Match background color
-              border: 'none',           // Remove borders
-              color: 'transparent' ,
-            } 
-          }, 
-          'HR!A28'
-        );
-        spreadsheet.merge('HR!A28:M100');
-        
-
-        // Populate header labels
-        const headers = ['Zone no.', 'Settings'];
-        for (let i = 0; i < 12; i++) {
-          const colLabel = i % 2 === 0 ? headers[0] : headers[1];
-          spreadsheet.updateCell(
-            { 
-              value: colLabel, 
-              style: { 
-                fontWeight: 'bold', 
-                textAlign: 'center', 
-                verticalAlign: 'middle', 
-                backgroundColor: 'rgb(181, 185, 240)', 
-                border: '1px solid black' 
-              } 
-            }, 
-            `HR!${String.fromCharCode(65 + i)}2`
-          );
-        }
-
-        // Populate number ranges
-        const numberRanges = [
-          { startCol: 'A', startNum: 1 },
-          { startCol: 'C', startNum: 25 },
-          { startCol: 'E', startNum: 49 },
-          { startCol: 'G', startNum: 73 },
-          { startCol: 'I', startNum: 97 },
-          { startCol: 'K', startNum: 121 }
-        ];
-
-        const colors = {
-          A: 'rgb(248, 248, 200)', // Light Yellow
-          C: 'rgb(248, 248, 200)', // Light Yellow
-          E: 'rgb(248, 248, 200)', // Light Yellow
-          G: 'rgb(248, 248, 200)', // Light Yellow
-          I: 'rgb(248, 248, 200)', // Light Yellow
-          K: 'rgb(248, 248, 200)'  // Light Yellow
-        };
-
-        // Apply pink background color to the specified ranges
-        const pinkColor = '#f7cfd5'; // Pink color
-
-        const applyBackgroundColor = (range) => {
-          const [startCell, endCell] = range.split(':');
-          const startCol = startCell.charCodeAt(0) - 65; // Convert column letter to index
-          const endCol = endCell.charCodeAt(0) - 65;
-          const startRow = parseInt(startCell.slice(1)) - 1; // Convert to 0-based index
-          const endRow = parseInt(endCell.slice(1)) - 1;
-
-          for (let row = startRow; row <= endRow; row++) {
-            for (let col = startCol; col <= endCol; col++) {
-              spreadsheet.updateCell({
-                style: { 
-                  backgroundColor: pinkColor 
-                }
-              }, `HR!${String.fromCharCode(65 + col)}${row + 1}`); // Adjust row index for 1-based
-            }
-          }
-        };
-
-        // Apply pink color to the specified ranges
-        applyBackgroundColor('B3:B26');
-        applyBackgroundColor('D3:D26');
-        applyBackgroundColor('F3:F26');
-        applyBackgroundColor('H3:H26');
-        applyBackgroundColor('J3:J26');
-        applyBackgroundColor('L3:L26');
-
-        // Column M is the 13th column (zero-based index 12)
-        const startColumnIndex = 12; // Zero-based index for column M
-
-        // Adjust the starting character code based on the column M
-        // Column M is ASCII 77 ('M'), so start from ASCII 77
-        // spreadsheet.setColumnsWidth(0, Array.from({ length: 16384 - startColumnIndex }, (_, i) => String.fromCharCode(77 + i)));
+  const editableRanges = [
+   'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9', 'B10', 'B11', 'B12', 'B13', 'B14', 'B15', 'B16', 'B17', 'B18', 'B19', 'B20', 'B21', 'B22', 'B23', 'B24', 'B25', 'B26','D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9', 'D10', 'D11', 'D12', 'D13', 'D14', 'D15', 'D16', 'D17', 'D18', 'D19', 'D20', 'D21', 'D22', 'D23', 'D24', 'D25', 'D26', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12', 'F13', 'F14', 'F15', 'F16', 'F17', 'F18', 'F19', 'F20', 'F21', 'F22', 'F23', 'F24', 'F25', 'F26', 'H3', 'H4', 'H5', 'H6', 'H7', 'H8', 'H9', 'H10', 'H11', 'H12', 'H13', 'H14', 'H15', 'H16', 'H17', 'H18', 'H19', 'H20', 'H21', 'H22', 'H23', 'H24', 'H25', 'H26', 'J3', 'J4', 'J5', 'J6', 'J7', 'J8', 'J9', 'J10', 'J11', 'J12', 'J13', 'J14', 'J15', 'J16', 'J17', 'J18', 'J19', 'J20', 'J21', 'J22', 'J23', 'J24', 'J25', 'J26', 'L3', 'L4', 'L5', 'L6', 'L7', 'L8', 'L9', 'L10', 'L11', 'L12', 'L13', 'L14', 'L15', 'L16', 'L17', 'L18', 'L19', 'L20', 'L21', 'L22', 'L23', 'L24', 'L25', 'L26'
+   ];
 
 
-        numberRanges.forEach(({ startCol, startNum }) => {
-          let number = startNum;
-          for (let row = 3; row <= 26; row++) {
-            // Update cell value and style
-            spreadsheet.updateCell({
-              value: number++, 
-              style: { 
-                textAlign: 'center', 
-                verticalAlign: 'middle', 
-                backgroundColor: colors[startCol] || 'white' // Apply color based on column
-              }
-            }, `HR!${startCol}${row}`);
-          }
-        });
+  const onBeforeSelect = (args) => {
+    // Check if indexes are defined and have the required elements
+    if (args.indexes && args.indexes.length >= 2) {
+      const { indexes } = args;
+      const rowIndex = indexes[0];
+      const colIndex = indexes[1];
+      const cell = String.fromCharCode(65 + colIndex) + (rowIndex + 1);
 
-        // Apply borders to cells from A3 to L26
-        const startRow = 2; // Row index for 3rd row (0-based index)
-        const endRow = 25; // Row index for 26th row (0-based index)
-        const startCol = 0; // Column index for A (0-based index)
-        const endCol = 11; // Column index for L (0-based index)
-
-        for (let row = startRow; row <= endRow; row++) {
-          for (let col = startCol; col <= endCol; col++) {
-            spreadsheet.updateCell({
-              style: { 
-                border: '1px solid black' 
-              }
-            }, `HR!${String.fromCharCode(65 + col)}${row + 1}`); // Adjust row index for 1-based
-          }
-        }
-
-        // Add borders to the cells
-        const columnsToBorder = ['B', 'D', 'F', 'H', 'J', 'L'];
-        columnsToBorder.forEach(col => {
-          for (let row = 1; row <= 26; row++) { // Assuming you want to apply the border to the first 25 rows
-            spreadsheet.updateCell({ style: { borderRight: '2px solid black' } }, `HR!${col}${row}`);
-          }
-        });
-
-        for (let col = 0; col < 12; col++) {
-          spreadsheet.updateCell({ style: { borderBottom: '2px solid black' } }, `HR!${String.fromCharCode(65 + col)}26`);
-        }
-
-        // Adding border to the right side of cell A1 in "HR" sheet
-        spreadsheet.updateCell({ style: { border: '2px solid black' } }, 'HR!A1');
+      if (!editableRanges.includes(cell)) {
+        args.cancel = true; // Cancel selection if cell is not in editableRanges
       }
-    };
-    
+    }
+  };
 
-    // Initialize and bind data to the spreadsheet
+  const onCellSelected = (args) => {
+    const spreadsheet = spreadsheetRef.current;
+    const { rowIndex, colIndex } = args;
+    const cell = String.fromCharCode(65 + colIndex) + (rowIndex + 1);
+
+    if (!editableRanges.includes(cell)) {
+      args.cancel = true; // Prevent selection
+      let nextEditableCell = findNextEditableCell(rowIndex, colIndex);
+      if (nextEditableCell) {
+        setTimeout(() => spreadsheet.selectRange(nextEditableCell), 0);
+      }
+    }
+  };
+
+  const onKeyDown = (e) => {
+    const spreadsheet = spreadsheetRef.current;
+    if (spreadsheet && (e.key === 'Tab' || e.key.startsWith('Arrow'))) {
+      e.preventDefault();
+      const activeCell = spreadsheet.getActiveSheet().activeCell;
+      let [col, row] = activeCell.match(/[A-Z]+|[0-9]+/g);
+      row = parseInt(row, 10) - 1;
+      col = col.charCodeAt(0) - 65;
+
+      let nextEditableCell;
+      if (e.key === 'Tab' || e.key === 'ArrowRight') {
+        nextEditableCell = findNextEditableCell(row, col + 0);
+      } else if (e.key === 'ArrowLeft') {
+        nextEditableCell = findPreviousEditableCell(row, col - 0);
+      } else if (e.key === 'ArrowDown') {
+        nextEditableCell = findNextEditableCell(row + 0, col);
+      } else if (e.key === 'ArrowUp') {
+        nextEditableCell = findPreviousEditableCell(row - 0, col);
+      }
+
+      if (nextEditableCell) {
+        setTimeout(() => spreadsheet.selectRange(nextEditableCell), 0);
+      }
+    }
+  };
+
+  const findNextEditableCell = (rowIndex, colIndex) => {
+    const flatEditableRanges = editableRanges.map(range => {
+      const col = range.charCodeAt(0) - 65;
+      const row = parseInt(range.substring(1)) - 1;
+      return { row, col, cell: range };
+    }).sort((a, b) => (a.row - b.row) || (a.col - b.col));
+
+    for (let i = 0; i < flatEditableRanges.length; i++) {
+      const { row, col, cell } = flatEditableRanges[i];
+      if (row > rowIndex || (row === rowIndex && col > colIndex)) {
+        return cell;
+      }
+    }
+
+    return flatEditableRanges[0].cell; // Loop back to the first editable cell
+  };
+
+  const findPreviousEditableCell = (rowIndex, colIndex) => {
+    const flatEditableRanges = editableRanges.map(range => {
+      const col = range.charCodeAt(0) - 65;
+      const row = parseInt(range.substring(1)) - 1;
+      return { row, col, cell: range };
+    }).sort((a, b) => (a.row - b.row) || (a.col - b.col));
+
+    for (let i = flatEditableRanges.length - 1; i >= 0; i--) {
+      const { row, col, cell } = flatEditableRanges[i];
+      if (row < rowIndex || (row === rowIndex && col < colIndex)) {
+        return cell;
+      }
+    }
+
+    return flatEditableRanges[flatEditableRanges.length - 1].cell; // Loop back to the last editable cell
+  };
+
+  const insertImage = () => {
     const spreadsheet = spreadsheetRef.current;
     if (spreadsheet) {
-      spreadsheet.dataBound = onDataBound;
+      // Image details
+      // const image1 = {
+      //   src: 'https://i.postimg.cc/VsF8cv1m/Screenshot-204.png', // Use the provided image URL
+      //   width: 320,  // Adjust width to fit within B10:B14
+      //   height: 95 // Adjust height to fit within B10:B14
+      // };
+
+      // // Insert the image into the specified range B10:B14
+      // spreadsheet.insertImage([image1], 'Q1'); // Start from the upper-left corner of the range
+      
     }
+  };
+  
+  const customizeSpreadsheet = () => {
+    const spreadsheet = spreadsheetRef.current;
+    if (spreadsheet) {
+      try {
+        for (let i = 1; i <= 24; i++) {
+          spreadsheet.updateCell({
+            value: i,
+            style: {
+              textAlign: 'center',
+              verticalAlign: 'middle',
+              fontSize: '10pt',
+              border: '1px solid black',
+              backgroundColor: 'rgb(248, 248, 200)'
+            }
+          }, `A${i + 2}`); // Start from A3
+        }
+        for (let i = 25; i <= 48; i++) {
+          spreadsheet.updateCell({
+            value: i,
+            style: {
+              textAlign: 'center',
+              verticalAlign: 'middle',
+              fontSize: '10pt',
+              border: '1px solid black',
+              backgroundColor: 'rgb(248, 248, 200)'
+            }
+          }, `C${i - 22}`); // Start from C3 (i.e., 25 - 22 = 3)
+        }
+        for (let i = 49; i <= 72; i++) {
+          spreadsheet.updateCell({
+            value: i,
+            style: {
+              textAlign: 'center',
+              verticalAlign: 'middle',
+              fontSize: '10pt',
+              border: '1px solid black',
+              backgroundColor: 'rgb(248, 248, 200)'
+            }
+          }, `E${i - 46}`); // Start from E3 (i.e., 49 - 46 = 3)
+        }
+        for (let i = 73; i <= 96; i++) {
+          spreadsheet.updateCell({
+            value: i,
+            style: {
+              textAlign: 'center',
+              verticalAlign: 'middle',
+              fontSize: '10pt',
+              border: '1px solid black',
+              backgroundColor: 'rgb(248, 248, 200)'
+            }
+          }, `G${i - 70}`); // Start from G3 (i.e., 73 - 70 = 3)
+        }
+  
+        // Add numbers 97 to 120 in column I starting from I3
+        for (let i = 97; i <= 120; i++) {
+          spreadsheet.updateCell({
+            value: i,
+            style: {
+              textAlign: 'center',
+              verticalAlign: 'middle',
+              fontSize: '10pt',
+              border: '1px solid black',
+              backgroundColor: 'rgb(248, 248, 200)'
+            }
+          }, `I${i - 94}`); // Start from I3 (i.e., 97 - 94 = 3)
+        }
+        for (let i = 121; i <= 144; i++) {
+          spreadsheet.updateCell({
+            value: i,
+            style: {
+              textAlign: 'center',
+              verticalAlign: 'middle',
+              fontSize: '10pt',
+              border: '1px solid black',
+              backgroundColor: 'rgb(248, 248, 200)'
+            }
+          }, `K${i - 118}`); // Start from L3 (i.e., 121 - 118 = 3)
+        }
+
+        for (let i = 1; i <= 24; i++) {
+          spreadsheet.updateCell({
+            value: '',
+            style: {
+              textAlign: 'center',
+              verticalAlign: 'middle',
+              fontSize: '10pt',
+              border: '1px solid black',
+              backgroundColor: '#f7cfd5'
+            }
+          }, `B${i + 2}`); // Start from A3
+        }
+        for (let i = 25; i <= 48; i++) {
+          spreadsheet.updateCell({
+            value: '',
+            style: {
+              textAlign: 'center',
+              verticalAlign: 'middle',
+              fontSize: '10pt',
+              border: '1px solid black',
+              backgroundColor: '#f7cfd5'
+            }
+          }, `D${i - 22}`); // Start from C3 (i.e., 25 - 22 = 3)
+        }
+        for (let i = 49; i <= 72; i++) {
+          spreadsheet.updateCell({
+            value: '',
+            style: {
+              textAlign: 'center',
+              verticalAlign: 'middle',
+              fontSize: '10pt',
+              border: '1px solid black',
+              backgroundColor: '#f7cfd5'
+            }
+          }, `F${i - 46}`); // Start from E3 (i.e., 49 - 46 = 3)
+        }
+        for (let i = 73; i <= 96; i++) {
+          spreadsheet.updateCell({
+            value: '',
+            style: {
+              textAlign: 'center',
+              verticalAlign: 'middle',
+              fontSize: '10pt',
+              border: '1px solid black',
+              backgroundColor: '#f7cfd5'
+            }
+          }, `H${i - 70}`); // Start from G3 (i.e., 73 - 70 = 3)
+        }
+  
+        // Add numbers 97 to 120 in column I starting from I3
+        for (let i = 97; i <= 120; i++) {
+          spreadsheet.updateCell({
+            value: '',
+            style: {
+              textAlign: 'center',
+              verticalAlign: 'middle',
+              fontSize: '10pt',
+              border: '1px solid black',
+              backgroundColor: '#f7cfd5'
+            }
+          }, `J${i - 94}`); // Start from I3 (i.e., 97 - 94 = 3)
+        }
+        for (let i = 121; i <= 144; i++) {
+          spreadsheet.updateCell({
+            value: '',
+            style: {
+              textAlign: 'center',
+              verticalAlign: 'middle',
+              fontSize: '10pt',
+              border: '1px solid black',
+              backgroundColor: '#f7cfd5'
+            }
+          }, `L${i - 118}`); // Start from L3 (i.e., 121 - 118 = 3)
+        }
+        // Update and style the header cell
+        spreadsheet.updateCell({
+          value: 'Hot Runner Controller Settings',
+          style: {
+            fontWeight: 'bold',
+            textAlign: 'center',
+            verticalAlign: 'middle',
+            fontSize: '12pt',
+            backgroundColor: 'rgb(163, 152, 236)',
+            color: 'white',
+            border: '1.5px solid black'
+          }
+        }, 'A1');
+        spreadsheet.updateCell({
+          value: 'Zone no.',
+          style: {
+            fontWeight: 'bold',
+            textAlign: 'center',
+            verticalAlign: 'middle',
+            fontSize: '12pt',
+            backgroundColor: 'rgb(181, 185, 240)',
+            color: 'black',
+            border: '1.5px solid black'
+          }
+        }, 'A2');
+        spreadsheet.updateCell({
+          value: 'Zone no.',
+          style: {
+            fontWeight: 'bold',
+            textAlign: 'center',
+            verticalAlign: 'middle',
+            fontSize: '12pt',
+            backgroundColor: 'rgb(181, 185, 240)',
+            color: 'black',
+            border: '1.5px solid black'
+          }
+        }, 'C2');
+        spreadsheet.updateCell({
+          value: 'Zone no.',
+          style: {
+            fontWeight: 'bold',
+            textAlign: 'center',
+            verticalAlign: 'middle',
+            fontSize: '12pt',
+            backgroundColor: 'rgb(181, 185, 240)',
+            color: 'black',
+            border: '1.5px solid black'
+          }
+        }, 'E2');
+        spreadsheet.updateCell({
+          value: 'Zone no.',
+          style: {
+            fontWeight: 'bold',
+            textAlign: 'center',
+            verticalAlign: 'middle',
+            fontSize: '12pt',
+            backgroundColor: 'rgb(181, 185, 240)',
+            color: 'black',
+            border: '1.5px solid black'
+          }
+        }, 'G2');
+        spreadsheet.updateCell({
+          value: 'Zone no.',
+          style: {
+            fontWeight: 'bold',
+            textAlign: 'center',
+            verticalAlign: 'middle',
+            fontSize: '12pt',
+            backgroundColor: 'rgb(181, 185, 240)',
+            color: 'black',
+            border: '1.5px solid black'
+          }
+        }, 'I2');
+        spreadsheet.updateCell({
+          value: 'Zone no.',
+          style: {
+            fontWeight: 'bold',
+            textAlign: 'center',
+            verticalAlign: 'middle',
+            fontSize: '12pt',
+            backgroundColor: 'rgb(181, 185, 240)',
+            color: 'black',
+            border: '1.5px solid black'
+          }
+        }, 'K2');
+        spreadsheet.updateCell({
+          value: 'Settings',
+          style: {
+            fontWeight: 'bold',
+            textAlign: 'center',
+            verticalAlign: 'middle',
+            fontSize: '12pt',
+            backgroundColor: 'rgb(181, 185, 240)',
+            color: 'black',
+            border: '1.5px solid black'
+          }
+        }, 'B2');
+        spreadsheet.updateCell({
+          value: 'Settings',
+          style: {
+            fontWeight: 'bold',
+            textAlign: 'center',
+            verticalAlign: 'middle',
+            fontSize: '12pt',
+            backgroundColor: 'rgb(181, 185, 240)',
+            color: 'black',
+            border: '1.5px solid black'
+          }
+        }, 'D2');
+        spreadsheet.updateCell({
+          value: 'Settings',
+          style: {
+            fontWeight: 'bold',
+            textAlign: 'center',
+            verticalAlign: 'middle',
+            fontSize: '12pt',
+            backgroundColor: 'rgb(181, 185, 240)',
+            color: 'black',
+            border: '1.5px solid black'
+          }
+        }, 'F2');
+        spreadsheet.updateCell({
+          value: 'Settings',
+          style: {
+            fontWeight: 'bold',
+            textAlign: 'center',
+            verticalAlign: 'middle',
+            fontSize: '12pt',
+            backgroundColor: 'rgb(181, 185, 240)',
+            color: 'black',
+            border: '1.5px solid black'
+          }
+        }, 'H2');
+        spreadsheet.updateCell({
+          value: 'Settings',
+          style: {
+            fontWeight: 'bold',
+            textAlign: 'center',
+            verticalAlign: 'middle',
+            fontSize: '12pt',
+            backgroundColor: 'rgb(181, 185, 240)',
+            color: 'black',
+            border: '1.5px solid black'
+          }
+        }, 'J2');
+        spreadsheet.updateCell({
+          value: 'Settings',
+          style: {
+            fontWeight: 'bold',
+            textAlign: 'center',
+            verticalAlign: 'middle',
+            fontSize: '12pt',
+            backgroundColor: 'rgb(181, 185, 240)',
+            color: 'black',
+            border: '1.5px solid black'
+          }
+        }, 'L2');
+        
+      
+        
+        // Merge specified cell ranges
+        spreadsheet.merge('A1:L1');
+        
+
+        spreadsheet.setColumnsWidth(100, ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L']);
+        // spreadsheet.setColumnsWidth(100, ['G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S']);
+        // spreadsheet.setColumnsWidth(0, Array.from({ length: 163840 }, (_, i) => String.fromCharCode(84 + i)));
+        spreadsheet.setColumnsHeight(150, ['1']);
+
+      } catch (error) {
+        console.error('Error updating spreadsheet:', error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (spreadsheetRef.current) {
+      const spreadsheet = spreadsheetRef.current;
+
+      spreadsheet.protectSheet(0, {
+        selectCells: true,
+        formatCells: false,
+        formatRows: false,
+        formatColumns: false,
+        insertLink: false,
+        insertShape: true,
+        insertImage: true
+      });
+
+      spreadsheet.lockCells('A1:AB30', true); // Lock all cells initially
+      editableRanges.forEach(range => {
+        spreadsheet.lockCells(range, false); // Unlock the editable ranges
+      });
+
+      // Add beforeSelect event handler
+      spreadsheet.beforeSelect = onBeforeSelect;
+
+      // Add event listeners
+      spreadsheet.cellSelected = onCellSelected;
+      spreadsheet.element.addEventListener('keydown', onKeyDown);
+
+      // Customize spreadsheet after it's created
+      spreadsheet.created = () => {
+        insertImage(); // Insert image into spreadsheet
+        customizeSpreadsheet(); // Apply additional customizations
+      };
+    }
+
+    // Cleanup event listener on component unmount
+    return () => {
+      if (spreadsheetRef.current) {
+        const spreadsheet = spreadsheetRef.current;
+        spreadsheet.element.removeEventListener('keydown', onKeyDown);
+      }
+    };
   }, []);
 
-  const handlePrint = () => {
-    window.print();
-  };
-
-  const handleSave = () => {
-    alert("Data saved successfully!");
-  };
-
-  const handleClose = () => {
-    window.close();
-  };
-
   return (
-    <div style={{ height: '480px', width: '99%', backgroundColor: '#f0f8ff', padding: '5px' }}> {/* Very light blue background for the page */}
+    <div style={{ height: '480px', width: '99%', backgroundColor: '#f0f8ff', padding: '5px' }}>
       <SpreadsheetComponent ref={spreadsheetRef} allowScrolling={true} showRibbon={false} showFormulaBar={true} showSheetTabs={false} style={{ height: '150px', width: '830px' }}>
         <SheetsDirective>
           <SheetDirective name="HR" showHeaders={false}>
             <RowsDirective>
-              <RowDirective index={0} height={50}/>
-              <RowDirective index={1} height={30}/>
-              {/* Define additional rows as needed */}
+              <RowDirective index={0} height={45}/>
+              <RowDirective index={1} height={20}/>
             </RowsDirective>
             <ColumnsDirective>
               <ColumnDirective width={70}/>
               <ColumnDirective width={70}/>
-              {/* Define additional columns as needed */}
             </ColumnsDirective>
-            {/* Define other directives and cells as needed */}
           </SheetDirective>
         </SheetsDirective>
       </SpreadsheetComponent>
-      
+
       {/* Fixed Bottom Pane */}
       <div style={{
         position: 'fixed',
         bottom: 0,
-        width: '96.5vw', // Adjusted width to match container width
+        width: '95vw', // Adjusted width to match container width
         backgroundColor: '#f0f8ff', // Light blue background color
-        border: '1.5px solid black',
+        borderTop: '1px solid #ccc',
         padding: '8px',
         display: 'flex',
         justifyContent: 'space-between',
-        alignItems: 'left',
+        alignItems: 'center',
         backgroundColor: '#bfd5e9',
         boxShadow: '0px -1px 5px rgba(0,0,0,0.2)' // Added shadow for better visibility
       }}>
@@ -260,13 +536,13 @@ const SpreadsheetExample = ({ pressure, temperature, distance, time, velocity, w
           <span>Weight: {weight}</span>
         </div>
         <div style={{ display: 'flex', gap: '10px' }}>
-          <button style={{ padding: '5px 10px', backgroundColor: '#e0e0e0', border: 'none', borderRadius: '4px' }} onClick={handlePrint}>Print</button>
-          <button style={{ padding: '5px 10px', backgroundColor: '#e0e0e0', border: 'none', borderRadius: '4px' }} onClick={handleSave}>Save</button>
-          <button style={{ padding: '5px 10px', backgroundColor: '#e0e0e0', border: 'none', borderRadius: '4px' }} onClick={handleClose}>Close</button>
+          <button style={{ padding: '5px 10px', backgroundColor: '#e0e0e0', border: 'none', borderRadius: '4px' }} onClick={() => window.print()}>Print</button>
+          <button style={{ padding: '5px 10px', backgroundColor: '#e0e0e0', border: 'none', borderRadius: '4px' }} onClick={() => alert('Save functionality not implemented.')}>Save</button>
+          <button style={{ padding: '5px 10px', backgroundColor: '#e0e0e0', border: 'none', borderRadius: '4px' }} onClick={() => alert('Close functionality not implemented.')}>Close</button>
         </div>
       </div>
     </div>
   );
 };
 
-export default SpreadsheetExample;
+export default HR;
