@@ -110,19 +110,74 @@ const HR = ({ pressure, temperature, distance, time, velocity, weight }) => {
     return flatEditableRanges[flatEditableRanges.length - 1].cell; // Loop back to the last editable cell
   };
 
+  
   const insertImage = () => {
     const spreadsheet = spreadsheetRef.current;
     if (spreadsheet) {
-      // Image details
-      // const image1 = {
-      //   src: 'https://i.postimg.cc/VsF8cv1m/Screenshot-204.png', // Use the provided image URL
-      //   width: 320,  // Adjust width to fit within B10:B14
-      //   height: 95 // Adjust height to fit within B10:B14
-      // };
-
-      // // Insert the image into the specified range B10:B14
-      // spreadsheet.insertImage([image1], 'Q1'); // Start from the upper-left corner of the range
       
+      const image1 = {
+        src: 'https://i.postimg.cc/gj2yXqDH/picture-picture.png', // Use the provided image URL
+        width: 1200,  // Adjust width to fit within B10:B14
+        height: 65 // Adjust height to fit within B10:B14
+      };
+
+      // Insert the image into the specified range B10:B14
+      spreadsheet.insertImage([image1], 'A1'); // Start from the upper-left corner of the range
+
+      const image2 = {
+        src: 'https://i.postimg.cc/gj2yXqDH/picture-picture.png', // Use the provided image URL
+        width: 100,  // Adjust width to fit within B10:B14
+        height: 480 // Adjust height to fit within B10:B14
+      };
+
+      // Insert the image into the specified range B10:B14
+      spreadsheet.insertImage([image2], 'A3'); // Start from the upper-left corner of the range
+    
+      const image3 = {
+        src: 'https://i.postimg.cc/gj2yXqDH/picture-picture.png', // Use the provided image URL
+        width: 100,  // Adjust width to fit within B10:B14
+        height: 480 // Adjust height to fit within B10:B14
+      };
+
+      // Insert the image into the specified range B10:B14
+      spreadsheet.insertImage([image3], 'D3'); // Start from the upper-left corner of the range
+    
+      const image4 = {
+        src: 'https://i.postimg.cc/gj2yXqDH/picture-picture.png', // Use the provided image URL
+        width: 104,  // Adjust width to fit within B10:B14
+        height: 480 // Adjust height to fit within B10:B14
+      };
+
+      // Insert the image into the specified range B10:B14
+      spreadsheet.insertImage([image4], 'G3'); // Start from the upper-left corner of the range
+    
+      const image5 = {
+        src: 'https://i.postimg.cc/gj2yXqDH/picture-picture.png', // Use the provided image URL
+        width: 112,  // Adjust width to fit within B10:B14
+        height: 480 // Adjust height to fit within B10:B14
+      };
+
+      // Insert the image into the specified range B10:B14
+      spreadsheet.insertImage([image5], 'J3'); // Start from the upper-left corner of the range
+    
+      const image6 = {
+        src: 'https://i.postimg.cc/gj2yXqDH/picture-picture.png', // Use the provided image URL
+        width: 120,  // Adjust width to fit within B10:B14
+        height: 480 // Adjust height to fit within B10:B14
+      };
+
+      // Insert the image into the specified range B10:B14
+      spreadsheet.insertImage([image6], 'M3'); // Start from the upper-left corner of the range
+    
+      const image7 = {
+        src: 'https://i.postimg.cc/gj2yXqDH/picture-picture.png', // Use the provided image URL
+        width: 120,  // Adjust width to fit within B10:B14
+        height: 480 // Adjust height to fit within B10:B14
+      };
+
+      // Insert the image into the specified range B10:B14
+      spreadsheet.insertImage([image7], 'P3'); // Start from the upper-left corner of the range
+    
     }
   };
   
@@ -436,18 +491,66 @@ const HR = ({ pressure, temperature, distance, time, velocity, weight }) => {
             border: '1.5px solid black'
           }
         }, 'L2');
+        spreadsheet.updateCell({
+          value: '',
+          style: {
+            backgroundColor: 'white', // Match background color
+            border: 'none',           // Remove borders
+            color: 'transparent' 
+          }
+        }, 'A28');
+        spreadsheet.updateCell({
+          value: '',
+          style: {
+            backgroundColor: 'white', // Match background color
+            borderLeft: 'none',    
+            borderRight: 'none', 
+            borderBottom: 'none',          
+            color: 'transparent' 
+          }
+        }, 'A27');
+        spreadsheet.updateCell({
+          value: '',
+          style: {
+            backgroundColor: 'white', // Match background color
+            border: 'none',              
+            color: 'transparent' 
+          }
+        }, 'N1');
+        spreadsheet.updateCell({
+          value: '',
+          style: {
+            backgroundColor: 'white', // Match background color
+            border: 'none',              
+            color: 'transparent' 
+          }
+        }, 'O1');
+        spreadsheet.updateCell({
+          value: '',
+          style: {
+            backgroundColor: 'white', // Match background color
+            borderTop: 'none',              
+            borderRight: 'none', 
+            borderBottom: 'none', 
+            color: 'transparent' 
+          }
+        }, 'M1');
         
       
         
         // Merge specified cell ranges
         spreadsheet.merge('A1:L1');
-        
+        spreadsheet.merge('A28:Z100');
+        spreadsheet.merge('A27:AZ27');
+        spreadsheet.merge('N1:N26');
+        spreadsheet.merge('O1:AZ26');
+        spreadsheet.merge('M1:M26');
 
         spreadsheet.setColumnsWidth(100, ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L']);
         // spreadsheet.setColumnsWidth(100, ['G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S']);
         // spreadsheet.setColumnsWidth(0, Array.from({ length: 163840 }, (_, i) => String.fromCharCode(84 + i)));
         spreadsheet.setColumnsHeight(150, ['1']);
-
+        
       } catch (error) {
         console.error('Error updating spreadsheet:', error);
       }
